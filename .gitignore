@@ -1,0 +1,62 @@
+# ---------- 依赖 ----------
+node_modules/
+package-lock.json
+yarn.lock
+
+# ---------- 数据库数据（绝不提交，只提交表结构） ----------
+mysql_data/
+**/mysql_data/**
+data/
+*.sql.bak
+*.dump
+*.sql.gz
+
+# ---------- 密钥与环境 ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets.json
+
+# ---------- 日志 ----------
+*.log
+_app.log
+_app.err
+logs/
+npm-debug.log*
+pnpm-debug.log*
+
+# ---------- 构建产物 ----------
+dist/
+build/
+.cache/
+.vite/
+*.tsbuildinfo
+
+# ---------- 开发过程产物 ----------
+v1_*.png
+v_*.png
+shot_*.png
+_*.png
+_*.mjs
+_*.py
+_*.txt
+*.tmp.png
+
+# ---------- 系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 编辑器 ----------
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---------- 备份 ----------
+*.bak
+*.old
+*.orig

@@ -1,0 +1,982 @@
+﻿<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#7c5dfa">
+<title>无界创镜AI - 你的赛博同伴</title>
+<link rel="stylesheet" href="/style.css">
+<script src="/vendor/vue.global.prod.js"></script>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.401L12 3l9 7.401"/><path d="M5.5 9.3V21h13V9.3"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.6c0 4.3-3.8 7.7-8.5 7.7-1 0-2-.15-2.9-.43L4 20.5l1.4-3.6A7.3 7.3 0 013.5 11.6C3.5 7.3 7.3 4 12 4s8.5 3.3 8.5 7.6z"/></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path d="M4 20l4.2-1.1 9.4-9.4-3.1-3.1L5.1 15.8 4 20z"/><path d="M13.8 6.2l3.1 3.1 1.7-1.7a2.2 2.2 0 000-3.1 2.2 2.2 0 00-3.1 0l-1.7 1.7z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M6 20V11"/><path d="M12 20V4"/><path d="M18 20v-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 21c1.2-4 4-5.9 7.4-5.9S18.2 17 19.4 21"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H20v15H6.5A2.5 2.5 0 004 20.5z"/><path d="M4 5.5v15"/><path d="M20 18v3H6.5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.2s-7.4-4.6-7.4-9.6a4.2 4.2 0 017.4-2.7 4.2 4.2 0 017.4 2.7c0 5-7.4 9.6-7.4 9.6z"/></symbol>
+    <symbol id="i-heart-fill" viewBox="0 0 24 24"><path d="M12 20.2s-7.4-4.6-7.4-9.6a4.2 4.2 0 017.4-2.7 4.2 4.2 0 017.4 2.7c0 5-7.4 9.6-7.4 9.6z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c3.2 4.2 6 6.3 6 10.2A6 6 0 016 13.2c0-2 .9-3.6 2-5.1.5 1.6 1.5 2.6 2.5 2.6C10.9 8.2 11.4 5.6 12 3z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.2l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.6l6-.9z"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4.2L6 21z"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 014 19V8a1.5 1.5 0 011.5-1.5H10"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M9 3h6l-.8 5.2 3.3 3.3-1.4 1.4-3.3-3.3L12 21h-.9l-.9-10.4-3.3 3.3-1.4-1.4 3.3-3.3z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L5 13.5h5.5L10 22l8-11.5h-5.5z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.6L21 19.4H3z"/><path d="M12 9.5v4.2"/><circle cx="12" cy="16.6" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.6" rx="2.2"/><path d="M8 10.4V7.8a4 4 0 018 0v2.6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9.6 6.5c-2.6 0-4.4 2-4.4 4.6 0 2.2 1.5 3.7 3.4 3.7 1.6 0 2.8-1.1 2.8-2.7 0-1.5-1-2.5-2.4-2.5-.3 0-.6 0-.8.1.3-1 1.2-1.7 2.4-1.9z"/><path d="M18.6 6.5c-2.6 0-4.4 2-4.4 4.6 0 2.2 1.5 3.7 3.4 3.7 1.6 0 2.8-1.1 2.8-2.7 0-1.5-1-2.5-2.4-2.5-.3 0-.6 0-.8.1.3-1 1.2-1.7 2.4-1.9z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5l12 7.5-12 7.5z"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5.5a3 3 0 00-3 3 3 3 0 00-1.6 5.5A3 3 0 0012 18.5z"/><path d="M12 5.5a3 3 0 013 3 3 3 0 011.6 5.5A3 3 0 0112 18.5z"/><path d="M12 5.5v13"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.4"/><rect x="13" y="4" width="7" height="7" rx="1.4"/><rect x="4" y="13" width="7" height="7" rx="1.4"/><rect x="13" y="13" width="7" height="7" rx="1.4"/></symbol>
+    <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M12 3l7 6-7 12-7-12z"/><path d="M5 9h14"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L21 21"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.4 9.5a5.6 5.6 0 1111.2 0c0 4.6 1.9 5.9 1.9 5.9H4.5s1.9-1.3 1.9-5.9z"/><path d="M10 18.6a2 2 0 004 0"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 100 17.6c1.4 0 2-.9 2-1.8 0-.6-.3-1-.3-1.6 0-.9.7-1.6 1.7-1.6h1.5c2 0 3.3-1.4 3.3-3.4 0-4.5-3.8-9.2-8.2-9.2z"/><circle cx="8" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.8" cy="10" r="1.1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.6" y="5.4" width="16.8" height="15" rx="2.2"/><path d="M3.6 10h16.8"/><path d="M8 3v4.4M16 3v4.4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></symbol>
+  </defs>
+</svg>
+<div id="app" class="app">
+
+  <!-- ==================== 侧边栏 ==================== -->
+  <aside class="sidebar">
+    <div class="sideUser" @click="tab='me'">
+      <div class="sideAvatar">星</div>
+      <div style="min-width:0">
+        <div class="sideUserName">{{ profile.firstName || '旅行者' }}</div>
+        <div class="sideUserSub">{{ isMember ? '创镜会员' : '普通用户' }}</div>
+      </div>
+    </div>
+
+    <div class="navGroup">
+      <div class="navGroupTitle">游玩</div>
+      <div class="navItem" :class="{active: tab==='home'}" @click="tab='home'">
+        <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg>首页
+      </div>
+      <div class="navItem" :class="{active: tab==='chat'}" @click="tab='chat'">
+        <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.5A8 8 0 1121 12z"/></svg>最近对话
+      </div>
+      <div class="navItem" :class="{active: tab==='draw'}" @click="tab='draw'">
+        <svg viewBox="0 0 24 24"><path d="M4 20l4-1 9-9-3-3-9 9-1 4z"/><path d="M14 6l3 3"/></svg>绘图
+      </div>
+      <div class="navItem" :class="{active: tab==='workshop'}" @click="tab='workshop'">
+        <svg viewBox="0 0 24 24"><path d="M4 20l4-1 9-9-3-3-9 9-1 4z"/><path d="M16 4l4 4"/></svg>我的角色
+      </div>
+    </div>
+
+    <div class="navGroup">
+      <div class="navGroupTitle">社区</div>
+      <div class="navItem" :class="{active: tab==='rank'}" @click="tab='rank'">
+        <svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>排行榜
+      </div>
+      <div class="navItem" :class="{active: tab==='bounty'}" @click="tab='bounty'">
+        <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.4.8-4 3.9 1 5.6-5-2.7-5 2.7 1-5.6-4-3.9 5.4-.8z"/></svg>悬赏广场
+      </div>
+    </div>
+
+    <div class="navGroup">
+      <div class="navGroupTitle">账户</div>
+      <div class="navItem" :class="{active: tab==='membership'}" @click="tab='membership'">
+        <svg viewBox="0 0 24 24"><path d="M3 7l4 4 5-6 5 6 4-4v10H3z"/></svg>会员中心
+      </div>
+      <div class="navItem" :class="{active: tab==='tasks'}" @click="tab='tasks'">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3 6-6"/><path d="M21 12a9 9 0 11-6.2-8.5"/></svg>任务中心
+      </div>
+      <div class="navItem" :class="{active: tab==='ambassador'}" @click="tab='ambassador'">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c1-3.6 3.6-5 7-5s6 1.4 7 5"/></svg>大使中心
+      </div>
+      <div class="navItem" :class="{active: tab==='settings'}" @click="tab='settings'">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>设置
+      </div>
+    </div>
+
+    <div class="sideFoot">无界创镜 AI · v1.0<br>Made with <svg class="ico ico-xs" aria-hidden="true"><use href="#i-heart-fill"/></svg></div>
+  </aside>
+
+  <!-- ==================== 主区 ==================== -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topTabs">
+        <button class="topTab" :class="{active: feed==='official'}" @click="setFeed('official')">
+          <svg viewBox="0 0 24 24"><path d="M12 3l2 4 4 .6-3 2.9.7 4.2-3.7-2-3.7 2 .7-4.2-3-2.9 4-.6z"/></svg>官方
+        </button>
+        <button class="topTab" :class="{active: feed==='discover'}" @click="setFeed('discover')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 5-4 2 2-5z"/></svg>发现
+        </button>
+        <button class="topTab" :class="{active: feed==='rank'}" @click="setFeed('rank')">
+          <svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>榜单
+        </button>
+        <button class="topTab" :class="{active: feed==='latest'}" @click="setFeed('latest')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>最新
+        </button>
+      </div>
+      <div class="homeBrand">
+        <span class="brandSeal">无</span>
+        <strong>无界创境</strong>
+      </div>
+      <div class="topRight">
+        <div class="balanceChip" @click="openRecharge">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          {{ fmt(balance) }}
+        </div>
+        <button class="iconBtn" @click="toggleSearch">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <button class="iconBtn" @click="openNotifications">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9z"/><path d="M10 21h4"/></svg>
+          <span class="dotBadge" v-if="unread>0"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ 首页 ============ -->
+    <div class="content homeContent" v-show="tab==='home'">
+
+      <!-- Hero 推荐 -->
+      <div class="heroCard" v-if="cards.length" @click="openDetail(cards[0])">
+        <img class="heroArt" :src="cards[0].data.heroUrl || cards[0].data.posterUrl || cards[0].data.avatarUrl" alt="" loading="eager">
+        <div class="heroShade"></div>
+        <span class="heroKind">{{ cards[0].data.tags && cards[0].data.tags.length ? '角色' : '角色' }}</span>
+        <div class="heroCopy">
+          <h2 class="heroTitle">{{ cards[0].data.name }}</h2>
+          <p class="heroSub">{{ cards[0].data.nickname }}<template v-if="cards[0].data.creator"> · {{ cards[0].data.creator }}</template></p>
+          <button class="heroBtn">开始聊天<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        </div>
+      </div>
+
+      <!-- 每日签到 -->
+      <div class="checkinCard" v-if="!checkedIn" @click="doCheckin">
+        <div class="checkinLead">
+          <span class="checkinIcon"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+          <div>
+            <div class="checkinTitle">每日签到</div>
+            <div class="checkinSub">连续 {{ streak }} 天</div>
+          </div>
+        </div>
+        <button class="checkinBtn" @click.stop="doCheckin">领取</button>
+      </div>
+      <div class="checkinCard done" v-else @click="openRecharge">
+        <div class="checkinLead">
+          <span class="checkinIcon ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <div>
+            <div class="checkinTitle">今日已签到</div>
+            <div class="checkinSub">连续 {{ streak }} 天 · 会员充得多获 66%</div>
+          </div>
+        </div>
+        <button class="checkinBtn ghost" @click.stop="openRecharge">充值</button>
+      </div>
+
+      <!-- 发现角色 -->
+      <div class="sectionHead">
+        <h3 class="sectionTitle">发现角色</h3>
+        <button class="searchPill" @click="toggleSearch">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>搜索角色
+        </button>
+      </div>
+
+      <div class="searchBar" v-show="searchOpen">
+        <input v-model="keyword" @input="onSearch" placeholder="搜索角色 / 标签 / 作者">
+      </div>
+
+      <!-- 筛选 -->
+      <div class="filterRow">
+        <button class="filterChip" v-for="f in feedList" :key="f.key"
+                :class="{active: feed===f.key}" @click="setFeed(f.key)">{{ f.label }}</button>
+      </div>
+
+      <!-- 列表 -->
+      <div class="storyList">
+        <article class="storyRow" v-for="c in cards" :key="c.id" @click="openDetail(c)">
+          <div class="storyThumbWrap">
+            <img class="storyThumb" :src="c.data.avatarUrl || c.data.posterUrl" alt="" loading="lazy">
+            <span class="storyTier" v-if="c.data.tier">{{ c.data.tier }}</span>
+          </div>
+          <div class="storyInfo">
+            <div class="storyName">{{ c.data.name }}</div>
+            <div class="storyTags">
+              <span class="storyTag" v-for="t in (c.data.tags||[]).slice(0,3)" :key="t">{{ t }}</span>
+            </div>
+            <div class="storyFoot">
+              <span class="storyAuthor">@{{ c.data.creator }}</span>
+              <span class="storyPop"><svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg>{{ fmt(c.popularity) }}</span>
+            </div>
+          </div>
+          <svg class="ico storyArrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </article>
+      </div>
+
+      <div class="emptyHint" v-if="!cards.length">还没有故事，稍等一下再刷新。</div>
+    </div>
+
+    <!-- ============ 聊天 ============ -->
+    <div class="chatLayout" v-show="tab==='chat'">
+      <!-- 会话列表 -->
+      <div class="convList">
+        <div class="convHead">
+          <span>最近对话</span>
+          <button class="btnGhost" style="padding:4px 10px;font-size:11px" @click="tab='home'">+ 新对话</button>
+        </div>
+        <div class="convScroll">
+          <div class="convItem" v-for="a in archives" :key="a.id"
+               :class="{active: currentCard && currentCard.id===a.characterCardId}"
+               @click="openArchive(a)">
+            <img class="convAvatar" :src="a.avatarUrl" alt="">
+            <div class="convMeta">
+              <div class="convTop">
+                <span class="convName">
+                  <span v-if="a.pinned" class="pinMark"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span>{{ a.title || a.nickname || a.name }}
+                </span>
+                <span class="convTime">{{ relTime(a.updatedAt) }}</span>
+              </div>
+              <div class="convPreview">
+                <span v-if="a.characterBanned" style="color:#fb7185">角色已下架</span>
+                <span v-else>{{ a.messageCount }} 条消息</span>
+              </div>
+            </div>
+            <button class="convMore" @click.stop="openArchiveMenu(a)">⋯</button>
+          </div>
+          <div class="empty" v-if="!archives.length" style="padding:30px 0">还没有对话</div>
+        </div>
+      </div>
+
+      <!-- 聊天主区 -->
+      <div class="chatMain">
+        <div class="chatTop" v-if="currentCard">
+          <img class="chatTopAvatar" :src="currentCard.data.avatarUrl" alt="">
+          <div>
+            <div class="chatTopName">{{ currentCard.data.nickname || currentCard.data.name }}</div>
+            <div class="chatTopSub">{{ modelLabel }} · {{ formatLabel }}</div>
+          </div>
+          <div class="chatTopRight">
+            <button class="iconBtn" @click="openChatSettings" title="模型设置">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+            </button>
+            <button class="iconBtn" @click="openKnowledge" title="长期记忆">
+              <svg viewBox="0 0 24 24"><path d="M4 5h7v14H4zM13 5h7v14h-7z"/></svg>
+            </button>
+            <button class="iconBtn" @click="showCardActions" title="更多">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="story" ref="storyEl">
+          <div class="storyInner">
+            <div class="empty" v-if="!currentCard" style="padding:80px 0">
+              从首页选一个角色开始对话
+            </div>
+
+            <template v-for="(m, i) in messages" :key="i">
+              <!-- 用户消息(带指令标记) -->
+              <div class="storyMsg user" v-if="m.role==='user'">
+                <div class="directiveBadge" v-if="m.directive">
+                  <svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>{ directiveLabel(m.directive) }
+                  <span v-if="m.directiveText" class="directiveBadgeText">· {{ m.directiveText }}</span>
+                </div>
+                {{ m.content }}
+              </div>
+
+              <!-- 角色消息 -->
+              <template v-else>
+                <div class="storyMsg assistant" :class="{streaming: m.streaming}" v-if="m.content || m.streaming">{{ m.content }}</div>
+                <div class="msgWarn" v-if="m.status==='status_only'">
+                  <svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>AI 只输出了状态栏，没有生成对话内容。可能是输出长度设定过短，或角色的状态栏配置有问题。
+                </div>
+                <div class="msgWarn" v-if="m.status==='failed'">
+                  <svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>生成失败，可能是网络波动或模型不稳定，请重试或换个模型试试
+                </div>
+                <div class="msgWarn" v-if="m.status==='blocked'">
+                  <svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>生成遇到问题，建议重试或换个模型试试
+                </div>
+
+                <!-- 状态栏 -->
+                <div class="statusPanel" v-if="m.statusRows && m.statusRows.length">
+                  <div class="statusHead">
+                    <span class="onlineDot" aria-hidden="true"></span>{{ currentCard ? (currentCard.data.nickname || currentCard.data.name) : '' }}
+                    <span class="stTag">STATUS</span>
+                  </div>
+                  <div class="statusRow" v-for="(r, ri) in m.statusRows" :key="ri">
+                    <span class="statusKey">{{ r.emoji }} {{ r.key }}</span>
+                    <template v-if="r.percent !== null">
+                      <div class="stBar"><i :style="{width: r.percent + '%'}"></i></div>
+                      <span class="stNum">{{ r.percent }}%</span>
+                    </template>
+                    <span class="statusVal" v-else>{{ r.value }}</span>
+                  </div>
+                </div>
+
+                <!-- 解锁画面 -->
+                <div class="unlockCard" v-if="i===lastAssistantIndex && !m.imageUrl && m.content"
+                     @click="unlockImage(m)">
+                  <div class="unlockIcon"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg></div>
+                  <div>
+                    <div class="unlockTitle">解锁此刻画面</div>
+                    <div class="unlockSub">根据剧情为你即时生成 · 120 额度</div>
+                  </div>
+                </div>
+                <img class="unlockImg" v-if="m.imageUrl" :src="m.imageUrl" alt="">
+
+                <!-- 点击回复 -->
+                <div class="optionsBlock" v-if="m.plotOptions && m.plotOptions.length">
+                  <div class="optionsTitle">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M6 9l6 6 6-6"/></svg>
+                    点击回复
+                  </div>
+                  <div class="option" v-for="(o, oi) in m.plotOptions" :key="oi" @click="pickOption(o)">
+                    <svg class="oIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.5A8 8 0 1121 12z"/></svg>
+                    <span>{{ o.text }}</span>
+                  </div>
+                </div>
+              </template>
+            </template>
+
+            <div class="storyMsg assistant typingHint" v-if="sending && !messages.some(m=>m.streaming && m.content)">正在输入…</div>
+          </div>
+        </div>
+
+        <div class="composerWrap" v-if="currentCard">
+          <!-- 指令面板 -->
+          <div class="directivePanel" v-if="directorOpen">
+            <div class="directiveHead">
+              <span>指令</span>
+              <select v-model="directiveType" class="directiveSelect">
+                <option v-for="d in directiveTypes" :key="d.key" :value="d.key">{{ d.label }}</option>
+              </select>
+              <button class="directiveClose" @click="directorOpen=false"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+            </div>
+            <div class="directiveHint">
+              {{ (directiveTypes.find(d=>d.key===directiveType)||{}).hint }}
+            </div>
+            <textarea class="directiveInput" v-model="directiveText" rows="2"
+                      :placeholder="(directiveTypes.find(d=>d.key===directiveType)||{}).placeholder"
+                      @keydown.enter.exact.prevent="sendDirective"></textarea>
+            <div class="row" style="justify-content:flex-end;margin-top:8px">
+              <button class="btnGhost" @click="directorOpen=false">取消</button>
+              <button class="btnPrimary" style="padding:8px 16px" @click="sendDirective">执行指令</button>
+            </div>
+          </div>
+
+          <div class="composerTools">
+            <div class="toolChip">
+              <select v-model.number="settings.modelId" @change="saveSettings">
+                <option v-for="m in models" :key="m.id" :value="m.id">{{ m.name }}</option>
+              </select>
+            </div>
+            <div class="toolChip" :class="{on: settings.knowledgeEnabled}" @click="toggleSetting('knowledgeEnabled')">
+              <svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>长期记忆
+            </div>
+            <div class="toolChip" :class="{on: settings.statusBarAuto}" @click="toggleSetting('statusBarAuto')">
+              <svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg>状态栏
+            </div>
+            <div class="toolChip" :class="{on: settings.plotAuto}" @click="toggleSetting('plotAuto')">
+              💬 剧情选项
+            </div>
+            <div class="toolChip" :class="{on: directorOpen}" @click="directorOpen=!directorOpen">
+              <svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>指令
+            </div>
+            <button class="toolChip" @click="regenerate" :disabled="sending"><svg class="ico" aria-hidden="true"><use href="#i-refresh"/></svg>重新生成</button>
+          </div>
+
+          <!-- 快捷格式工具栏 -->
+          <div class="quickFormat">
+            <button class="qfBtn" @click="wrapSelection('dialogue')" title="插入引号，标记为说出来的话"><svg class="ico" aria-hidden="true"><use href="#i-quote"/></svg> 说话</button>
+            <button class="qfBtn" @click="wrapSelection('scene')" title="插入方括号，剧情推进">[ ] 剧情</button>
+            <button class="qfBtn" @click="wrapSelection('monologue')" title="插入圆括号，行动描写">（）行动</button>
+            <button class="qfBtn" @click="insertCharName" title="插入角色名">＠ 角色名</button>
+          </div>
+
+          <div class="composer">
+            <textarea class="composerInput" ref="draftEl" v-model="draft" rows="1"
+                      :placeholder="composerMode==='action' ? '描述你的行动…' : '说点什么…'"
+                      @keydown.enter.exact.prevent="send"></textarea>
+            <button class="sendBtn" :disabled="sending || !draft.trim()" @click="send">
+              <svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 8 6 8z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 绘图 ============ -->
+    <div class="content" v-show="tab==='draw'">
+      <h1 class="pageTitle">绘境工坊</h1>
+      <div class="pageSub">根据描述生成画面</div>
+      <div class="panel">
+        <div class="formRow">
+          <textarea v-model="drawPrompt" rows="3" placeholder="描述你想要的画面…"></textarea>
+        </div>
+        <div class="row" style="gap:10px">
+          <select v-model="drawEngine" class="flex1" style="padding:10px;border-radius:10px;
+                  background:rgba(255,255,255,.05);border:1px solid var(--line);color:#eee">
+            <option v-for="e in engines" :key="e.id" :value="e.id">{{ e.name }} · {{ e.credit }}/张</option>
+          </select>
+          <select v-model.number="drawCount" style="padding:10px;border-radius:10px;
+                  background:rgba(255,255,255,.05);border:1px solid var(--line);color:#eee">
+            <option :value="1">1 张</option><option :value="2">2 张</option><option :value="4">4 张</option>
+          </select>
+          <button class="btnPrimary" @click="doDraw" :disabled="drawing">{{ drawing ? '生成中' : '生成' }}</button>
+        </div>
+        <div class="muted" style="margin-top:10px">预计消耗 {{ drawCost }} 额度</div>
+      </div>
+      <div class="cardGrid" style="margin-top:16px">
+        <img v-for="(img,i) in drawImages" :key="i" :src="img.url" alt=""
+             style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      </div>
+    </div>
+
+    <!-- ============ 我的角色 ============ -->
+    <div class="content" v-show="tab==='workshop'">
+      <h1 class="pageTitle">我的角色</h1>
+      <div class="pageSub">创建并发布你自己的角色卡</div>
+
+      <div class="panel">
+        <div class="formRow">
+          <label>AI 生成角色卡</label>
+          <textarea v-model="genIdea" rows="2" placeholder="描述你想要的角色,例如:一个在深夜便利店工作的女孩,慢热但观察力很强"></textarea>
+        </div>
+        <button class="btnPrimary" @click="genCard" :disabled="generating">
+          {{ generating ? '生成中…' : '生成草稿(200 额度)' }}
+        </button>
+      </div>
+
+      <div class="panel" v-if="draftCard">
+        <div class="grid2">
+          <div class="formRow"><label>作品名称</label><input v-model="draftCard.name"></div>
+          <div class="formRow"><label>角色昵称</label><input v-model="draftCard.nickname"></div>
+        </div>
+        <div class="formRow"><label>标签(逗号分隔)</label><input v-model="draftTags"></div>
+        <div class="formRow"><label>角色描述</label><textarea v-model="draftCard.creator_notes" rows="3"></textarea></div>
+        <div class="formRow"><label>性格特点</label><textarea v-model="draftCard.personality" rows="2"></textarea></div>
+        <div class="formRow"><label>场景设定</label><textarea v-model="draftCard.scenario" rows="2"></textarea></div>
+        <div class="formRow"><label>角色形象(用于生图)</label><textarea v-model="draftCard.appearance" rows="2"></textarea></div>
+        <div class="formRow"><label>开场白</label><textarea v-model="draftCard.opening_line" rows="2"></textarea></div>
+        <div class="formRow"><label>初始状态块(emoji + 键: 值)</label>
+          <textarea v-model="draftCard.preset_status_block" rows="4"
+                    placeholder="❤️ 好感度: 0%&#10;🧠 情绪: 紧张&#10;🏠 场景: 走廊"></textarea>
+        </div>
+        <button class="btnPrimary" @click="saveDraft">保存并发布</button>
+      </div>
+
+      <div class="section"><h2>已发布</h2></div>
+      <div class="listItem" v-for="c in myCards" :key="c.id">
+        <img :src="c.data.avatarUrl" style="width:42px;height:42px;border-radius:10px;object-fit:cover">
+        <div class="liMain">
+          <div class="liTitle">{{ c.data.name }}</div>
+          <div class="liSub">{{ c.status }} · {{ c.likeCount }} 赞 · {{ c.chatCount }} 次对话</div>
+        </div>
+        <button class="btnGhost" @click="editCard(c)">编辑</button>
+      </div>
+      <div class="empty" v-if="!myCards.length">还没有作品</div>
+    </div>
+
+    <!-- ============ 排行榜 ============ -->
+    <div class="content" v-show="tab==='rank'">
+      <h1 class="pageTitle">排行榜</h1>
+      <div class="pageSub">按人气排序</div>
+      <div class="listItem" v-for="(r,i) in leaderboard" :key="r.characterCardId">
+        <span style="width:24px;font-weight:800;color:#c4b1ff">{{ i+1 }}</span>
+        <img :src="r.avatarUrl" style="width:40px;height:40px;border-radius:10px;object-fit:cover">
+        <div class="liMain">
+          <div class="liTitle">{{ r.nickname || r.name }}</div>
+          <div class="liSub">{{ r.name }}</div>
+        </div>
+        <span class="muted"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg> {{ fmt(r.popularity) }}</span>
+      </div>
+    </div>
+
+    <!-- ============ 悬赏 ============ -->
+    <div class="content" v-show="tab==='bounty'">
+      <h1 class="pageTitle">悬赏广场</h1>
+      <div class="pageSub">发布需求,其他人接单创作</div>
+      <div class="listItem" v-for="b in bounties" :key="b.id">
+        <div class="liMain">
+          <div class="liTitle">{{ b.title }}</div>
+          <div class="liSub">{{ b.description }}</div>
+          <div class="liSub">{{ b.usedSlots }}/{{ b.slots }} 名额 · {{ b.category }}</div>
+        </div>
+        <span style="color:var(--gold);font-weight:700">{{ fmt(b.rewardCredits) }}</span>
+        <button class="btnGhost" @click="reserveBounty(b)">接单</button>
+      </div>
+      <div class="empty" v-if="!bounties.length">暂无悬赏</div>
+    </div>
+
+    <!-- ============ 会员 ============ -->
+    <div class="content" v-show="tab==='membership'">
+      <h1 class="pageTitle">会员中心</h1>
+      <div class="pageSub">{{ isMember ? '到期时间 ' + fmtDate(membership.expiresAt) : '当前未开通' }}</div>
+      <div class="panel">
+        <div class="switchRow">
+          <div class="switchInfo">
+            <div class="switchTitle">会员权益</div>
+            <div class="switchDesc">签到 2000 额度 · 额度加成 66% · 上下文上限 68000</div>
+          </div>
+        </div>
+      </div>
+      <div class="section"><h2>套餐</h2></div>
+      <div class="listItem" v-for="p in plans" :key="p.id" @click="subscribe(p.id)" style="cursor:pointer">
+        <div class="liMain">
+          <div class="liTitle">{{ p.name }}</div>
+          <div class="liSub">{{ p.days }} 天</div>
+        </div>
+        <span style="color:var(--gold);font-weight:700">${{ p.price }}</span>
+      </div>
+    </div>
+
+    <!-- ============ 任务 ============ -->
+    <div class="content" v-show="tab==='tasks'">
+      <h1 class="pageTitle">任务中心</h1>
+      <div class="pageSub">完成任务领取额度</div>
+      <div class="listItem" v-for="t in tasks" :key="t.key">
+        <div class="liMain">
+          <div class="liTitle">{{ t.title }}</div>
+          <div class="liSub">{{ t.done ? (t.claimed ? '已领取' : '可领取') : '未完成' }}</div>
+        </div>
+        <span style="color:var(--gold)">+{{ fmt(t.reward) }}</span>
+        <button class="btnGhost" :disabled="!t.done || t.claimed" @click="claimTask(t)">
+          {{ t.claimed ? '已领' : '领取' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ 大使中心 ============ -->
+    <div class="content" v-show="tab==='ambassador'">
+      <h1 class="pageTitle">大使中心</h1>
+      <div class="pageSub">邀请好友获得返现</div>
+      <div class="panel">
+        <div class="muted">我的邀请码</div>
+        <div style="font-size:26px;font-weight:800;letter-spacing:3px;color:#c4b1ff;margin:8px 0">
+          {{ inviteCode || '--' }}
+        </div>
+        <button class="btnPrimary" @click="copyInvite">复制邀请码</button>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="panel" style="text-align:center">
+          <div style="font-size:20px;font-weight:800">{{ inviteStats.totalInvited || 0 }}</div>
+          <div class="muted">已邀请</div>
+        </div>
+        <div class="panel" style="text-align:center">
+          <div style="font-size:20px;font-weight:800">{{ fmt(inviteStats.totalReward||0) }}</div>
+          <div class="muted">累计奖励</div>
+        </div>
+        <div class="panel" style="text-align:center">
+          <div style="font-size:20px;font-weight:800">{{ ambassador.level || '-' }}</div>
+          <div class="muted">等级</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 设置 ============ -->
+    <div class="content" v-show="tab==='settings'">
+      <h1 class="pageTitle">设置</h1>
+      <div class="pageSub">模型、记忆与生成偏好</div>
+
+      <!-- 模型与记忆 -->
+      <div class="panel">
+        <div class="section" style="margin-top:0"><h2>模型与记忆</h2></div>
+
+        <div class="formRow">
+          <label>模型</label>
+          <select v-model.number="settings.modelId" @change="saveSettings">
+            <option v-for="m in models" :key="m.id" :value="m.id">{{ m.name }} ({{ m.tier }})</option>
+          </select>
+        </div>
+
+        <div class="sliderRow">
+          <label>记忆长度</label>
+          <input type="range" :min="limits.maxContextTokens.min" :max="isMember ? limits.maxContextTokens.max : 16000"
+                 :step="limits.maxContextTokens.step" v-model.number="settings.maxContextTokens"
+                 @change="saveSettings">
+          <span class="sliderVal">{{ settings.maxContextTokens }}</span>
+        </div>
+
+        <div class="sliderRow">
+          <label>回复长度</label>
+          <input type="range" :min="limits.maxOutputTokens.min" :max="limits.maxOutputTokens.max"
+                 :step="limits.maxOutputTokens.step" v-model.number="settings.maxOutputTokens"
+                 @change="saveSettings">
+          <span class="sliderVal">{{ settings.maxOutputTokens }}</span>
+        </div>
+
+        <div class="sliderRow">
+          <label>人设理解深度</label>
+          <input type="range" :min="limits.maxCharacterTokens.min" :max="limits.maxCharacterTokens.max"
+                 :step="limits.maxCharacterTokens.step" v-model.number="settings.maxCharacterTokens"
+                 @change="saveSettings">
+          <span class="sliderVal">{{ settings.maxCharacterTokens }}</span>
+        </div>
+
+        <div class="formRow">
+          <label>输出语言</label>
+          <select v-model="settings.outputLanguageCode" @change="saveSettings">
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="formRow">
+          <label>游戏模式</label>
+          <select v-model="settings.contentFormat" @change="saveSettings">
+            <option value="roleplay">角色扮演</option>
+            <option value="novel">沉浸小说</option>
+            <option value="script">互动影院</option>
+          </select>
+        </div>
+
+        <div class="switchRow">
+          <div class="switchInfo">
+            <div class="switchTitle">长期记忆</div>
+            <div class="switchDesc">自动记录故事进展、角色、关系与物品,并在后续对话中读取</div>
+          </div>
+          <div class="switch" :class="{on: settings.knowledgeEnabled}" @click="toggleSetting('knowledgeEnabled')"></div>
+        </div>
+      </div>
+
+      <!-- 状态栏 -->
+      <div class="panel">
+        <div class="section" style="margin-top:0"><h2>状态栏</h2></div>
+        <div class="switchRow">
+          <div class="switchInfo">
+            <div class="switchTitle">自动生成状态栏</div>
+            <div class="switchDesc">每次回复后生成角色状态栏,独立生成不占用回复长度</div>
+          </div>
+          <div class="switch" :class="{on: settings.statusBarAuto}" @click="toggleSetting('statusBarAuto')"></div>
+        </div>
+        <div class="sliderRow" style="margin-top:14px">
+          <label>最大输出 Tokens</label>
+          <input type="range" :min="limits.statusBarMaxTokens.min" :max="limits.statusBarMaxTokens.max"
+                 :step="limits.statusBarMaxTokens.step" v-model.number="settings.statusBarMaxTokens"
+                 @change="saveSettings">
+          <span class="sliderVal">{{ settings.statusBarMaxTokens }}</span>
+        </div>
+      </div>
+
+      <!-- 剧情选项 -->
+      <div class="panel">
+        <div class="section" style="margin-top:0"><h2>剧情选项</h2></div>
+        <div class="switchRow">
+          <div class="switchInfo">
+            <div class="switchTitle">自动生成剧情选项</div>
+            <div class="switchDesc">每次回复后生成可点选的剧情走向</div>
+          </div>
+          <div class="switch" :class="{on: settings.plotAuto}" @click="toggleSetting('plotAuto')"></div>
+        </div>
+        <div class="sliderRow" style="margin-top:14px">
+          <label>选项条数</label>
+          <input type="range" min="2" max="6" step="1" v-model.number="settings.plotOptionsCount" @change="saveSettings">
+          <span class="sliderVal">{{ settings.plotOptionsCount }}</span>
+        </div>
+      </div>
+
+      <!-- 我的人设 -->
+      <div class="panel">
+        <div class="section" style="margin-top:0"><h2>我的人设</h2>
+          <button class="btnGhost" @click="newPersona">新建</button>
+        </div>
+        <div class="listItem" v-for="p in personas" :key="p.id">
+          <div class="liMain">
+            <div class="liTitle">{{ p.name }} <span class="muted" v-if="p.active">· 使用中</span></div>
+            <div class="liSub">{{ (p.description||'').slice(0,50) }}</div>
+          </div>
+          <button class="btnGhost" @click="activatePersona(p)">
+            {{ p.active ? '取消' : '使用' }}
+          </button>
+          <button class="btnGhost btnDanger" @click="deletePersona(p)">删</button>
+        </div>
+        <div class="empty" v-if="!personas.length" style="padding:20px 0">
+          创建你的人设,AI 会把你当作这个角色
+        </div>
+
+        <div v-if="personaForm.open" style="margin-top:12px">
+          <div class="formRow"><label>人设名称</label><input v-model="personaForm.name"></div>
+          <div class="formRow"><label>描述</label>
+            <textarea v-model="personaForm.description" rows="3"
+                      placeholder="描述你自己 —— 性格、外貌、背景…"></textarea>
+          </div>
+          <button class="btnPrimary" @click="savePersona">保存</button>
+        </div>
+      </div>
+
+      <!-- 兑换码 -->
+      <div class="panel">
+        <div class="section" style="margin-top:0"><h2>兑换码</h2></div>
+        <div class="row">
+          <input v-model="redeemInput" placeholder="输入兑换码" class="flex1"
+                 style="padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.05);
+                        border:1px solid var(--line);color:#eee;outline:none">
+          <button class="btnPrimary" @click="redeem">兑换</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 我的（移动端入口） ============ -->
+    <div class="content" v-show="tab==='me'">
+      <h1 class="pageTitle">{{ profile.firstName || '旅行者' }}</h1>
+      <div class="pageSub">ID: {{ profile.userId || '--' }} · 额度 {{ fmt(balance) }}</div>
+      <div class="listItem" v-for="it in meEntries" :key="it.tab" @click="tab=it.tab" style="cursor:pointer">
+        <div class="liMain"><div class="liTitle">{{ it.label }}</div></div><span class="muted">›</span>
+      </div>
+      <button class="btnGhost btnDanger" style="margin-top:16px;width:100%" @click="logout">退出登录</button>
+    </div>
+  </div>
+
+  <!-- ==================== 角色卡详情页 ==================== -->
+  <div class="detailView" v-if="detail.open">
+    <button class="detailBack" @click="closeDetail"><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+
+    <div class="detailScroll" v-if="detail.card">
+      <!-- 大海报 -->
+      <div class="detailHero">
+        <div class="detailHeroBg" :style="{backgroundImage:'url(' + detail.card.data.posterUrl + ')'}"></div>
+        <img class="detailPoster" :src="detail.card.data.posterUrl || detail.card.data.avatarUrl" alt="">
+      </div>
+
+      <!-- 标题 -->
+      <div class="detailTitleWrap">
+        <h1 class="detailTitle">{{ detail.card.data.name }}</h1>
+        <div class="detailTier">{{ detail.card.data.tier }}</div>
+      </div>
+
+      <!-- 统计 -->
+      <div class="detailStats">
+        <span class="detailStat hot" v-if="detail.stats.tierLabel"><svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg>{{ detail.stats.tierLabel }}</span>
+        <span class="detailStat"><svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg>{{ fmtShort(detail.stats.popularity) }}</span>
+        <span class="detailStat"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>{{ fmt(detail.stats.comments) }}</span>
+        <span class="detailStat"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>{{ fmt(detail.stats.views) }}</span>
+      </div>
+      <div class="detailTimes">
+        <span v-if="detail.times.createdAt">创建于 {{ relTime(detail.times.createdAt) }}</span>
+        <span v-if="detail.times.lastEditedAt">编辑于 {{ relTime(detail.times.lastEditedAt) }}</span>
+      </div>
+
+      <!-- 标签 -->
+      <div class="detailTags">
+        <span class="detailTag" v-for="t in detail.card.data.tags" :key="t">{{ t }}</span>
+      </div>
+
+      <!-- 角色相册 -->
+      <div class="detailSection" v-if="detail.gallery.length">
+        <div class="detailCard">
+          <div class="detailCardHead">
+            <h3>角色相册</h3>
+            <button class="unlockAllBtn" v-if="!detail.galleryUnlocked" @click="unlockGallery">
+              💎 解锁相册
+            </button>
+          </div>
+          <div class="galleryRow">
+            <div class="galleryItem" v-for="g in detail.gallery" :key="g.id"
+                 :class="{locked: g.locked}" @click="viewGalleryImage(g)">
+              <img :src="g.thumb" alt="">
+              <div class="galleryLock" v-if="g.locked">
+                <span><svg class="ico" aria-hidden="true"><use href="#i-diamond"/></svg>解锁查看</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 创作者备注 -->
+      <div class="detailSection">
+        <div class="detailCard">
+          <div class="detailCardHead"><h3>创作者备注</h3></div>
+          <div style="position:relative">
+            <div class="notesBody" :class="{expanded: detail.notesExpanded}">
+              {{ detail.card.data.creator_notes }}
+            </div>
+            <div class="notesFade" v-if="!detail.notesExpanded"></div>
+          </div>
+          <button class="notesToggle" @click="detail.notesExpanded = !detail.notesExpanded">
+            {{ detail.notesExpanded ? '收起 ∧' : '展开 ∨' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- 作者 -->
+      <div class="detailSection">
+        <div class="authorRow">
+          <div class="authorAvatarRing">
+            <img :src="detail.author.avatarUrl || '/favicon.png'" alt="">
+          </div>
+          <div class="authorMeta">
+            <div class="authorName">{{ detail.author.name }}</div>
+            <span class="authorLevel">∞ {{ detail.author.title }} {{ detail.author.level }}</span>
+          </div>
+          <button class="btnGhost" @click="toggleFollowAuthor">
+            {{ detail.author.following ? '已关注' : '关注' }}
+          </button>
+        </div>
+
+        <div class="detailCard" style="margin-top:12px">
+          <div class="detailCardHead"><h3>支持作者</h3></div>
+          <div class="supportRow">
+            <div class="supportHint">喜欢这张卡?充电鼓励作者,也为它增加一份热度</div>
+            <button class="chargeBtn" @click="chargeAuthor">为作者充电</button>
+          </div>
+        </div>
+
+        <div class="bountyPoolRow">
+          <div class="bountyPoolLabel">
+            <svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg>悬赏池 <b>{{ fmtShort(detail.bountyPool) }}</b> · {{ detail.bountyCount }} 个
+          </div>
+          <button class="btnGhost" @click="createCardBounty">发起悬赏</button>
+        </div>
+      </div>
+
+      <!-- 评论 -->
+      <div class="detailSection">
+        <div class="detailCard">
+          <div class="detailCardHead">
+            <h3>评论 ({{ detail.stats.comments }})</h3>
+            <button class="btnGhost" @click="openCommentBox">写评论</button>
+          </div>
+          <div class="commentItem" v-for="c in detail.comments" :key="c.id">
+            <div class="commentAvatar">{{ (c.userName || 'U')[0] }}</div>
+            <div class="commentBody">
+              <div class="commentTop">
+                <span class="commentName">{{ c.userName }}</span>
+                <span class="commentStars">{{ '★'.repeat(c.rating) }}</span>
+                <span class="commentPinned" v-if="c.pinned">置顶</span>
+              </div>
+              <div class="commentText">{{ c.content }}</div>
+            </div>
+          </div>
+          <div class="empty" v-if="!detail.comments.length" style="padding:20px 0">还没有评论</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="detailBar">
+      <div class="detailBarIcons">
+        <button class="barIcon" :class="{on: detail.interactions.favorited}" @click="detailFavorite">
+          <svg class="ico" aria-hidden="true"><use :href="detail.interactions.favorited ? '#i-heart-fill' : '#i-heart'"/></svg>
+        </button>
+        <button class="barIcon bm" :class="{on: detail.interactions.bookmarked}" @click="detailBookmark"><svg class="ico" aria-hidden="true"><use href="#i-bookmark"/></svg></button>
+        <button class="barIcon" @click="detailShare"><svg class="ico" aria-hidden="true"><use href="#i-share"/></svg></button>
+      </div>
+      <button class="startChatBtn" @click="startChatFromDetail">
+        <svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg> {{ detail.archive ? '继续聊天' : '开始聊天' }}
+      </button>
+    </div>
+  </div>
+  <!-- 移动端底部 tab -->
+  <nav class="mobileTabs">
+    <button class="mTab" :class="{active: tab==='home'}" @click="tab='home'">
+      <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg>首页
+    </button>
+    <button class="mTab" :class="{active: tab==='chat'}" @click="tab='chat'">
+      <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.5A8 8 0 1121 12z"/></svg>聊天
+    </button>
+    <button class="mTab" :class="{active: tab==='draw'}" @click="tab='draw'">
+      <svg viewBox="0 0 24 24"><path d="M4 20l4-1 9-9-3-3-9 9-1 4z"/><path d="M14 6l3 3"/></svg>绘图
+    </button>
+    <button class="mTab" :class="{active: tab==='rank'}" @click="tab='rank'">
+      <svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>榜单
+    </button>
+    <button class="mTab" :class="{active: tab==='me'}" @click="tab='me'">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 21c1.2-4 4-5.6 7.5-5.6S18.3 17 19.5 21"/></svg>我的
+    </button>
+  </nav>
+
+  <!-- 弹层 -->
+  <div class="sheetMask" v-show="sheet.open" @click="closeSheet"></div>
+  <div class="sheet" v-show="sheet.open">
+    <div class="sheetHead"><h3>{{ sheet.title }}</h3><button @click="closeSheet" aria-label="关闭"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <div class="sheetBody">
+      <template v-if="sheet.type==='recharge'">
+        <div class="pkg" v-for="p in packages" :key="p.id" :class="{popular:p.popular}" @click="buy(p)">
+          <span class="pkgTag" v-if="p.tag">{{ p.tag }}</span>
+          <div style="flex:1">
+            <div class="pkgMain">{{ fmt(p.displayCredits) }} 额度</div>
+            <div class="pkgSub">{{ p.bonus ? '含赠送 '+fmt(p.bonus) : '标准档' }}{{ p.firstRechargeBonus ? ' · 首充双倍' : '' }}</div>
+          </div>
+          <div class="pkgPrice">${{ p.price }}</div>
+        </div>
+      </template>
+
+      <template v-else-if="sheet.type==='archiveMenu'">
+        <div class="pkg" @click="togglePin(sheet.archive)">
+          <div style="flex:1"><div class="pkgMain">{{ sheet.archive.pinned ? '取消置顶' : '置顶' }}</div></div>
+        </div>
+        <div class="pkg" @click="renameArchive(sheet.archive)">
+          <div style="flex:1"><div class="pkgMain">编辑名称</div></div>
+        </div>
+        <div class="pkg" @click="deleteArchive(sheet.archive)">
+          <div style="flex:1"><div class="pkgMain" style="color:#fb7185">删除存档</div></div>
+        </div>
+      </template>
+
+      <template v-else-if="sheet.type==='knowledge'">
+        <div class="listItem" v-for="k in knowledge" :key="k.id">
+          <div class="liMain">
+            <div class="liTitle" style="font-size:12.5px">{{ k.content }}</div>
+            <div class="liSub">{{ k.kind }}</div>
+          </div>
+          <button class="btnGhost" @click="deleteKnowledge(k)">删</button>
+        </div>
+        <div class="empty" v-if="!knowledge.length">暂无记忆记录</div>
+        <button class="btnGhost" style="margin-top:10px" @click="regenerateKnowledge"><svg class="ico" aria-hidden="true"><use href="#i-refresh"/></svg> 重新回溯记忆</button>
+      </template>
+
+      <template v-else-if="sheet.type==='notifications'">
+        <div class="listItem" v-for="n in notifications" :key="n.id">
+          <div class="liMain">
+            <div class="liTitle">{{ n.title }}</div>
+            <div class="liSub">{{ n.body }}</div>
+          </div>
+        </div>
+        <div class="empty" v-if="!notifications.length">没有新通知</div>
+      </template>
+
+      <template v-else-if="sheet.type==='cardActions'">
+        <div class="pkg" @click="doLike"><div style="flex:1"><div class="pkgMain">{{ liked ? '取消点赞' : '点赞' }}</div></div></div>
+        <div class="pkg" @click="doFavorite"><div style="flex:1"><div class="pkgMain">{{ favorited ? '取消收藏' : '收藏' }}</div></div></div>
+        <div class="pkg" @click="openTip"><div style="flex:1"><div class="pkgMain">打赏 100 额度</div></div></div>
+        <div class="pkg" @click="openReview"><div style="flex:1"><div class="pkgMain">写评价</div></div></div>
+        <div class="pkg" @click="refreshGreeting"><div style="flex:1"><div class="pkgMain">换个开场白</div></div></div>
+        <div class="pkg" @click="undoRound"><div style="flex:1"><div class="pkgMain">撤销上一轮</div></div></div>
+      </template>
+
+      <template v-else-if="sheet.type==='chatSettings'">
+        <div class="formRow">
+          <label>模型</label>
+          <select v-model.number="settings.modelId" @change="saveSettings">
+            <option v-for="m in models" :key="m.id" :value="m.id">{{ m.name }}</option>
+          </select>
+        </div>
+        <div class="switchRow">
+          <div class="switchInfo"><div class="switchTitle">长期记忆</div></div>
+          <div class="switch" :class="{on:settings.knowledgeEnabled}" @click="toggleSetting('knowledgeEnabled')"></div>
+        </div>
+        <div class="switchRow">
+          <div class="switchInfo"><div class="switchTitle">状态栏</div></div>
+          <div class="switch" :class="{on:settings.statusBarAuto}" @click="toggleSetting('statusBarAuto')"></div>
+        </div>
+        <div class="switchRow">
+          <div class="switchInfo"><div class="switchTitle">剧情选项</div></div>
+          <div class="switch" :class="{on:settings.plotAuto}" @click="toggleSetting('plotAuto')"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="toastMsg" v-show="toastMsg">{{ toastMsg }}</div>
+</div>
+
+<script src="/app.vue.js"></script>
+</body>
+</html>

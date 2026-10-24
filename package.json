@@ -1,0 +1,21 @@
+{
+  "name": "wujie-tavern",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "无界创镜 AI 酒馆 —— 角色扮演对话平台",
+  "scripts": {
+    "start": "node server.mysql.mjs",
+    "seed": "node seed_roommate.mjs",
+    "test": "node test_all_endpoints.mjs",
+    "test:admin": "node test_admin.mjs",
+    "test:stream": "node test_stream.mjs",
+    "clean": "node clean_test_data.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "mysql2": "^3.11.0"
+  }
+}
